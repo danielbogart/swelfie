@@ -1,0 +1,88 @@
+html { 
+	height: 100% 
+}
+
+body { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+}
+
+#title {
+	text-align: center;
+	font-family: 'Indie Flower', Arial;
+	font-size: 5.5em;
+}
+
+#subTitle{
+	display: show;
+	text-align: center;
+	font-family: 'Indie Flower', Arial;
+	margin-bottom: 1em;
+}
+
+#map-canvas {
+	display: show;
+	position: relative;
+	height: 50%;
+	bottom: 0px;
+}
+
+#results {
+	display: none;
+}
+
+#column1 {
+	margin-top: .8em;
+	display: inline-block;
+	width: 33%;
+	height: auto;
+	text-align: center;
+}
+
+#column2 {
+	display: inline-block;
+	width: 33%;
+	height: auto;
+	text-align: center;
+}
+
+#column3 {
+	display: inline-block;
+	width: 33%;
+	height: auto;
+	text-align: center;
+}
+
+.columnTitle {
+	font-family: 'Indie Flower', Arial;
+	text-align: center;
+	font-size: 1.5em;
+	margin-bottom: 1.5em;
+	height: 3em;
+	width: auto;
+	vertical-align: middle
+}
+
+.imgMetaData {
+	margin: 1em;
+	font-family: 'Indie Flower', Arial;
+	text-align: center;
+	margin-bottom: 1.5em;
+}
+
+#loadMore {
+	font-family: 'Indie Flower', Arial;
+	text-align: center;
+	margin-bottom: 1.5em;
+	font-size: 1em;
+	border-radius: 6px;
+}
+
+#back {
+	font-family: 'Indie Flower', Arial;
+	text-align: center;
+	margin-bottom: 1.5em;
+	font-size: 1em;
+	border-radius: 6px;
+}
