@@ -8,6 +8,19 @@ $(document).ready(function(){
 
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
+	//GET function
+	var getTaggedPics = function(tagname) {
+
+		$.ajax({
+			type: 'GET',
+			tag: tagname,
+			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent'
+		})
+		.done(function(data) {
+			$('#column1').append(tag-name);
+		});
+	};
+
 	var newMarker = function newMarker(lat, langy, breakName) {
 		this.lat = lat;
 		this.langy = langy;
@@ -30,7 +43,11 @@ $(document).ready(function(){
 	  		$('#map-canvas').hide();
 	  		$('#subTitle').hide();
 	  		$('#results').show();
+	  		getTaggedPics('oceanbeach');
+
 		});
+
+		//Tag endpoints: http://instagram.com/developer/endpoints/tags/
 
 	}
 
@@ -43,7 +60,7 @@ $(document).ready(function(){
  		newMarker(32.796799,-117.257694, 'Pacific Beach'),
  		newMarker(32.831171,-117.281291, 'Windansea Beach'),
  		newMarker(32.867909,-117.253825, 'Scripp\'s Beach'),
- 		newMarker(32.959094,-117.268177, 'Del Mar/15th St'),
+ 		newMarker(32.959094,-117.268177, 'Del Mar/15th Street'),
  		newMarker(33.016383,-117.282337, 'Cardiff Reef'),
  		newMarker(33.034499,-117.292712, 'Swami\'s'),
  		newMarker(33.064832,-117.305598, 'Beacon\'s Beach'),
