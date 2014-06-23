@@ -2,29 +2,56 @@ $(document).ready(function(){
 
 	var myLatlng = new google.maps.LatLng(32.890399,-117.253224);
 	var mapOptions = {
-	  zoom: 10,
+	  zoom: 11,
 	  center: myLatlng
 	}
+
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-  	var ob = new google.maps.Marker({
-	    position: myLatlng,
-	    title:"Ocean Beach"
-	});
+	var newMarker = function newMarker(lat, langy, breakName) {
+		this.lat = lat;
+		this.langy = langy;
+		this.breakName = breakName;
 
-	ob.setMap(map);
+		var makeMarker = new google.maps.Marker({
+			position: new google.maps.LatLng(lat,langy),
+			title: breakName
+		});
 
-	var infowindow = new google.maps.InfoWindow({
-    	content: "Ocean Beach"
-	});
-  		infowindow.open(map,ob);
+		makeMarker.setMap(map);		
 
-  	google.maps.event.addListener(ob, 'click', function() {
-  		//function for clicking ob
-  		$('#map-canvas').hide();
-  		$('#subTitle').hide();
-  		$('#results').show();
-	});
+		infowindow2 = new google.maps.InfoWindow({
+			content: breakName
+		});
+
+		infowindow2.open(map,makeMarker);
+
+		google.maps.event.addListener(makeMarker, 'click', function() {
+	  		$('#map-canvas').hide();
+	  		$('#subTitle').hide();
+	  		$('#results').show();
+		});
+
+	}
+
+ 	var markers = [
+ 		newMarker(32.565044,-117.132996, 'Imperial Beach'),
+ 		newMarker(32.890399, -117.253224, 'Ocean Beach'),
+ 		newMarker(32.725631, -117.257387, 'Sunset Cliffs'),
+ 		newMarker(32.749529, -117.253145, 'Ocean Beach'),
+ 		newMarker(32.771254,-117.253317, 'Mission Beach'),
+ 		newMarker(32.796799,-117.257694, 'Pacific Beach'),
+ 		newMarker(32.831171,-117.281291, 'Windansea Beach'),
+ 		newMarker(32.867909,-117.253825, 'Scripp\'s Beach'),
+ 		newMarker(32.959094,-117.268177, 'Del Mar/15th St'),
+ 		newMarker(33.016383,-117.282337, 'Cardiff Reef'),
+ 		newMarker(33.034499,-117.292712, 'Swami\'s'),
+ 		newMarker(33.064832,-117.305598, 'Beacon\'s Beach'),
+ 		newMarker(33.096332,-117.316809, 'Ponto Jetty'),
+ 		newMarker(33.147253,-117.3461, 'Tamarack'),
+ 		newMarker(33.193692,-117.384315, 'Oceanside Pier'),
+ 		newMarker(32.805077,-117.262253, 'Tourmaline')
+ 	];
 
 	$('#back').click(function() {
 		$('#results').hide();

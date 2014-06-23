@@ -24,8 +24,9 @@ body {
 #map-canvas {
 	display: show;
 	position: relative;
-	height: 50%;
+	height: 70%;
 	bottom: 0px;
+	overflow: hidden;
 }
 
 #results {
