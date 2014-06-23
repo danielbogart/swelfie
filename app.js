@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: 'GET',
 			tag: tagname,
-			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent'
+			url: 'https://api.instagram.com/v1/tags/'+tagname+'snow/media/recent?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(data) {
 			$('#column1').append(tag-name);
