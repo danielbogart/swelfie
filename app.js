@@ -16,7 +16,7 @@ $(document).ready(function(){
 			type: 'GET',
 			tag: tagname,
 			dataType: "jsonp",
-			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
+			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent?client_id=29a2e1bc7f0542cc8926cdee3f5e5053'
 		})
 		.done(function(getTaggedPics) {
 			console.log('get tagged pics');
@@ -45,9 +45,9 @@ $(document).ready(function(){
 				//create photo frame with picture, caption, and time posted inside
 				
 				$('#column2').append(photoFrame);
-				$('.photoFrame').last().append(img);
-				$('.photoFrame').last().append(caption);
-				$('.photoFrame').last().append(metaData);
+				$('#column2 .photoFrame').last().append(img);
+				$('#column2 .photoFrame').last().append(caption);
+				$('#column2 .photoFrame').last().append(metaData);
 			};
 
 		});
@@ -61,7 +61,7 @@ $(document).ready(function(){
 			lat: lat,
 			lng: langy,
 			dataType: "jsonp",
-			url: 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+langy+'&access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
+			url: 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+langy+'&client_id=29a2e1bc7f0542cc8926cdee3f5e5053'
 		})
 		.done(function(getLocationPics) {
 			console.log(getLocationPics);	
@@ -89,9 +89,9 @@ $(document).ready(function(){
 				//create photo frame with picture, caption, and time posted inside
 				
 				$('#column1').append(photoFrame);
-				$('.photoFrame').last().append(img);
-				$('.photoFrame').last().append(caption);
-				$('.photoFrame').last().append(metaData);
+				$('#column1 .photoFrame').last().append(img);
+				$('#column1 .photoFrame').last().append(caption);
+				$('#column1 .photoFrame').last().append(metaData);
 			};
 
 		});
@@ -104,7 +104,7 @@ $(document).ready(function(){
 			distance: 1000,
 			count: 20,
 			dataType: "jsonp",
-			url: 'https://api.instagram.com/v1/users/'+userid+'/media/recent/?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
+			url: 'https://api.instagram.com/v1/users/'+userid+'/media/recent/?client_id=29a2e1bc7f0542cc8926cdee3f5e5053'
 		})
 		.done(function(getProPics) {
 				console.log('get pro pics');
@@ -131,9 +131,9 @@ $(document).ready(function(){
 				//create photo frame with picture, caption, and time posted inside
 				
 				$('#column3').append(photoFrame);
-				$('.photoFrame').last().append(img);
-				$('.photoFrame').last().append(caption);
-				$('.photoFrame').last().append(metaData);
+				$('#column3 .photoFrame').last().append(img);
+				$('#column3 .photoFrame').last().append(caption);
+				$('#column3 .photoFrame').last().append(metaData);
 		});
 	};
 
