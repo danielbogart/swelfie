@@ -19,7 +19,6 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(getTaggedPics) {
-			console.log(getTaggedPics);
 
 			for (x=0; x <=3; x++) {
 				var img = document.createElement("img");
@@ -39,9 +38,8 @@ $(document).ready(function(){
 		});
 	};
 
-	//Retrieve and display photos by geolocation tag, within 1000m
+	//retrieve and display photos by geolocation tag, within 1000m
 	var getLocationPics = function(lat, langy) {
-		console.log(lat, langy);
 		$.ajax({
 			type: 'GET',
 			distance: 1000,
@@ -51,7 +49,6 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+langy+'&access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(getLocationPics) {
-			console.log(getLocationPics);
 
 			for (x=0; x <=3; x++) {
 				var img = document.createElement("img");
@@ -68,6 +65,32 @@ $(document).ready(function(){
 				$('#column1').append(metaData);
 			};
 
+		});
+	};
+
+	//Retrieve and display photos of pro surfers
+	var getProPics = function(userid) {
+		$.ajax({
+			type: 'GET',
+			distance: 1000,
+			count: 20,
+			dataType: "jsonp",
+			url: 'https://api.instagram.com/v1/users/'+userid+'/media/recent/?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
+		})
+		.done(function(getProPics) {
+
+				var img = document.createElement("img");
+				var metaData = document.createElement("div");
+				metaData.className = "imgMetaData";
+
+				var date = new Date(getProPics.data[x].created_time*1000);	
+				var formatted = "Posted on: " +date.toString();
+
+				img.src = getProPics.data[Math.floor((Math.random() * 20) + 0)].images.low_resolution.url;
+				metaData.innerHTML = formatted;
+
+				$('#column3').append(img);
+				$('#column3').append(metaData);
 		});
 	};
 
@@ -95,8 +118,17 @@ $(document).ready(function(){
 	  		$('#subTitle').hide();
 	  		$('#results').show();
 	  		var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
+
+	  		//set column headers
+ 			$('#column1Title').html('Geotagged at '+breakName+' and surrounding area');
+ 			$('#column2Title').html('Tagged with #'+shortened);
+ 
 	  		getTaggedPics(shortened);
 	  		getLocationPics(lat, langy);
+	  		getProPics(14549197);
+	  		getProPics(8139971);
+	  		getProPics(5995367);
+	  		getProPics(6704228);
 
 		});
 	}
@@ -121,7 +153,19 @@ $(document).ready(function(){
  		newMarker(32.805077,-117.262253, 'Tourmaline Beach')
  	];
 
+ 	//back button reloads map - currently reloads entire page, could use JS instead
 	$('#back').click(function() {
 		location.reload();
+	});
+
+	//load more button loads four more rows of pictures
+	$('#loadMore').click(function() {
+			var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
+			getTaggedPics(shortened);
+	  		getLocationPics(lat, langy);
+	  		getProPics(14549197);
+	  		getProPics(8139971);
+	  		getProPics(5995367);
+	  		getProPics(6704228);
 	});
 })
