@@ -19,20 +19,35 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(getTaggedPics) {
-
+			console.log('get tagged pics');
 			for (x=0; x <=3; x++) {
+				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
+				var caption = document.createElement('div');
+
+				caption.className = 'caption';
 				metaData.className = "imgMetaData";
+				photoFrame.className = 'photoFrame'; 
 
 				var date = new Date(getTaggedPics.data[x].created_time*1000);	
-				var formatted = "Posted on: " +date.toString();
+				var formatted = "Posted on " +date.toString();
 
 				img.src = getTaggedPics.data[x].images.low_resolution.url;
+				//if statement to handle if caption is blank
+				if(getTaggedPics.data[x].caption != null) { 
+				  	caption.innerHTML = getTaggedPics.data[x].caption.text;
+				} else {
+				  caption.innerHTML = "no caption";
+				}
 				metaData.innerHTML = formatted;
 
-				$('#column2').append(img);
-				$('#column2').append(metaData);
+				//create photo frame with picture, caption, and time posted inside
+				
+				$('#column2').append(photoFrame);
+				$('.photoFrame').last().append(img);
+				$('.photoFrame').last().append(caption);
+				$('.photoFrame').last().append(metaData);
 			};
 
 		});
@@ -49,20 +64,34 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+langy+'&access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(getLocationPics) {
-
+			console.log(getLocationPics);	
 			for (x=0; x <=3; x++) {
+				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
+				var caption = document.createElement('div');
+
+				caption.className = 'caption';
 				metaData.className = "imgMetaData";
+				photoFrame.className = 'photoFrame'; 
 
 				var date = new Date(getLocationPics.data[x].created_time*1000);	
-				var formatted = "Posted on: " +date.toString();
+				var formatted = "Posted on " +date.toString();
 
 				img.src = getLocationPics.data[x].images.low_resolution.url;
 				metaData.innerHTML = formatted;
-
-				$('#column1').append(img);
-				$('#column1').append(metaData);
+				//if statement to handle if caption is blank
+				if(getLocationPics.data[x].caption != null) { 
+				  	caption.innerHTML = getLocationPics.data[x].caption.text;
+				} else {
+				  caption = "no caption";
+				}
+				//create photo frame with picture, caption, and time posted inside
+				
+				$('#column1').append(photoFrame);
+				$('.photoFrame').last().append(img);
+				$('.photoFrame').last().append(caption);
+				$('.photoFrame').last().append(metaData);
 			};
 
 		});
@@ -78,19 +107,33 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/users/'+userid+'/media/recent/?access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
 		})
 		.done(function(getProPics) {
-
+				console.log('get pro pics');
+				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
+				var caption = document.createElement('div');
+
+				caption.className = 'caption';
 				metaData.className = "imgMetaData";
+				photoFrame.className = 'photoFrame'; 
 
 				var date = new Date(getProPics.data[x].created_time*1000);	
-				var formatted = "Posted on: " +date.toString();
+				var formatted = "Posted on " +date.toString();
 
-				img.src = getProPics.data[Math.floor((Math.random() * 20) + 0)].images.low_resolution.url;
+				img.src = getProPics.data[x].images.low_resolution.url;
+				if(getProPics.data[x].caption != null) { 
+				  	caption.innerHTML = getProPics.data[x].caption.text;
+				} else {
+				  caption.innerHTML = "no caption";
+				}
 				metaData.innerHTML = formatted;
 
-				$('#column3').append(img);
-				$('#column3').append(metaData);
+				//create photo frame with picture, caption, and time posted inside
+				
+				$('#column3').append(photoFrame);
+				$('.photoFrame').last().append(img);
+				$('.photoFrame').last().append(caption);
+				$('.photoFrame').last().append(metaData);
 		});
 	};
 
@@ -124,6 +167,8 @@ $(document).ready(function(){
  			$('#column1Title').html('Geotagged at '+breakName+' and surrounding area');
  			$('#column2Title').html('Tagged with #'+shortened);
 
+ 			//comment out to avoid 429 while editing
+ 		
 	  		getTaggedPics(shortened);
 	  		getLocationPics(lat, langy);
 	  		getProPics(14549197);
@@ -156,6 +201,9 @@ $(document).ready(function(){
 
  	//back button reloads map - currently reloads entire page, could use JS instead
 	$('#back').click(function() {
+		location.reload();
+	});
+	$('#clickTitle').click(function() {
 		location.reload();
 	});
 

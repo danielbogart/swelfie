@@ -19,7 +19,7 @@
 
 	</head>
 <body>
-	<div class="titleContainer" id="title">Swelfie</div>
+	<div class="titleContainer" id="title"><span id="clickTitle">Swelfie</span></div>
 	<div id="subtitleContainer">
 		<div id="subTitle">
 			See the most recent pictures taken at your local breaks<br>Click break pin to view photos
@@ -27,24 +27,32 @@
 	</div>
 
 	<div id="map-canvas"></div>
+	<div id="resultsViewport">
+		<div id="results">
+			<div id="column1">
+				<div class="columnTitle" id="column1Title"></div>
 
-	<div id="results">
-		<div id="column1">
-			<div class="columnTitle" id="column1Title"></div>	
-		</div>
+				<!--<div class="photoFrame">
+					<img src="images/surf.jpg" height="400" width="400" alt="surfing"/>
+					<div class="caption">Boosted this sick air at #blacksbeach yesterday evening #hangtime #callmelukeskywalker #boosted</div>
+					<div class="imgMetaData">Post on Jun 24, 2013 at 4:20 PM PDT</div>
+				</div>-->
+				
+			</div>
 
-		<div id="column2">
-			<div class="columnTitle" id="column2Title"></div>
-		</div>
+			<div id="column2">
+				<div class="columnTitle" id="column2Title"></div>
+			</div>
 
-		<div id="column3" id="column3Title">
-			<div class="columnTitle">Pics from pro surfers for a little inspiration</div>
-		</div>
-		<div id="loadMore">
-			<button id="loadMore" input type="button">Load More</button>
-			<button id="back" input type="button">Back to Map</button>
+			<div id="column3" id="column3Title">
+				<div class="columnTitle">Pics from pro surfers for a little inspiration</div>
+			</div>
+
+			<div id="loadMore">
+				<button class="button" id="loadMore" input type="button">Load More</button>
+				<button class="button" id="back" input type="button">Back to Map</button>
+			</div>
 		</div>
 	</div>
-	
 </body>
 </html>
