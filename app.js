@@ -6,9 +6,10 @@ $(document).ready(function(){
 	  center: myLatlng
 	}
 
+	//initialize google maps, centered on myLatLng
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-	//GET function
+	//retrieve and display photos by hashtag
 	var getTaggedPics = function(tagname) {
 
 		$.ajax({
@@ -38,6 +39,39 @@ $(document).ready(function(){
 		});
 	};
 
+	//Retrieve and display photos by geolocation tag, within 1000m
+	var getLocationPics = function(lat, langy) {
+		console.log(lat, langy);
+		$.ajax({
+			type: 'GET',
+			distance: 1000,
+			lat: lat,
+			lng: langy,
+			dataType: "jsonp",
+			url: 'https://api.instagram.com/v1/media/search?lat='+lat+'&lng='+langy+'&access_token=32643075.f59def8.734afc94b4aa47cfbabb289dc47ec304'
+		})
+		.done(function(getLocationPics) {
+			console.log(getLocationPics);
+
+			for (x=0; x <=3; x++) {
+				var img = document.createElement("img");
+				var metaData = document.createElement("div");
+				metaData.className = "imgMetaData";
+
+				var date = new Date(getLocationPics.data[x].created_time*1000);	
+				var formatted = "Posted on: " +date.toString();
+
+				img.src = getLocationPics.data[x].images.low_resolution.url;
+				metaData.innerHTML = formatted;
+
+				$('#column1').append(img);
+				$('#column1').append(metaData);
+			};
+
+		});
+	};
+
+	//function to add new markers
 	var newMarker = function newMarker(lat, langy, breakName) {
 		this.lat = lat;
 		this.langy = langy;
@@ -62,10 +96,12 @@ $(document).ready(function(){
 	  		$('#results').show();
 	  		var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
 	  		getTaggedPics(shortened);
+	  		getLocationPics(lat, langy);
 
 		});
 	}
 
+	//currently active map markers
  	var markers = [
  		newMarker(32.565044,-117.132996, 'Imperial Beach'),
  		newMarker(32.890399, -117.253224, 'Black\'s Beach'),
