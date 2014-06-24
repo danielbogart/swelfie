@@ -7,15 +7,26 @@ body {
 	margin: 0; 
 	padding: 0;
 }
+.titleContainer {
+	width: 50%;
+	display: inline-block;
+	text-align: center;
+}
+
+#subtitleContainer {
+	width: 49%;
+	display: inline-block;
+	text-align: center;
+}
 
 #title {
 	text-align: center;
 	font-family: 'Indie Flower', Arial;
-	font-size: 5.5em;
+	font-size: 5em;
 }
 
 #subTitle{
-	display: show;
+	display: inline-block;
 	text-align: center;
 	font-family: 'Indie Flower', Arial;
 	margin-bottom: 1em;
@@ -24,7 +35,7 @@ body {
 #map-canvas {
 	display: show;
 	position: relative;
-	height: 70%;
+	height: 86.5%;
 	bottom: 0px;
 	overflow: hidden;
 }

@@ -116,13 +116,14 @@ $(document).ready(function(){
 		google.maps.event.addListener(makeMarker, 'click', function() {
 	  		$('#map-canvas').hide();
 	  		$('#subTitle').hide();
+			document.getElementById('title').className= "";
 	  		$('#results').show();
 	  		var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
 
 	  		//set column headers
  			$('#column1Title').html('Geotagged at '+breakName+' and surrounding area');
  			$('#column2Title').html('Tagged with #'+shortened);
- 
+
 	  		getTaggedPics(shortened);
 	  		getLocationPics(lat, langy);
 	  		getProPics(14549197);
@@ -163,9 +164,13 @@ $(document).ready(function(){
 			var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
 			getTaggedPics(shortened);
 	  		getLocationPics(lat, langy);
-	  		getProPics(14549197);
-	  		getProPics(8139971);
-	  		getProPics(5995367);
-	  		getProPics(6704228);
+	  		//Surfreps
+	  		getProPics(442848562);
+	  		//Jordy Smith
+	  		getProPics(6156937);
+	  		//Holly Coffey
+	  		getProPics(14272077);
+	  		//Jamie O'Brien
+	  		getProPics(14406863);
 	});
 })
