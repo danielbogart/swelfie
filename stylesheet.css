@@ -183,3 +183,7 @@ body {
 	font-family: 'Indie Flower', Arial;
 	margin-left: 2.2em;
 }
+
+#footer a:link {
+	text-decoration: none;
+}
