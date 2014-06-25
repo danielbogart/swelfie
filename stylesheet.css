@@ -87,7 +87,9 @@ body {
 
 .photoFrame {
 	display: inline-block;
-	margin: 1em 6em 0 6em;
+	height: 400px;
+	width: 326px;
+	margin: 1em 0 0 0;
 	padding-top: 1em;
 	background: #ffffff;
 	box-shadow: 0px 0px 2px #CCCCCC;
@@ -99,6 +101,9 @@ body {
 	font-family: 'Indie Flower', Arial;
 	text-align: center;
 	margin-bottom: 1em;
+	height: 1.5em;
+	line-height: 1.5em;
+	overflow: hidden;
 }
 
 .caption {

@@ -38,7 +38,7 @@ $(document).ready(function(){
 				if(getTaggedPics.data[x].caption != null) { 
 				  	caption.innerHTML = getTaggedPics.data[x].caption.text;
 				} else {
-				  caption.innerHTML = "no caption";
+				  caption.innerHTML = "<br><br>";
 				}
 				metaData.innerHTML = formatted;
 
@@ -84,7 +84,9 @@ $(document).ready(function(){
 				if(getLocationPics.data[x].caption != null) { 
 				  	caption.innerHTML = getLocationPics.data[x].caption.text;
 				} else {
-				  caption = "no caption";
+				  caption = 'test';
+				  caption = document.createElement('div');
+				  caption.className = 'caption';				  
 				}
 				//create photo frame with picture, caption, and time posted inside
 				
@@ -117,6 +119,8 @@ $(document).ready(function(){
 				metaData.className = "imgMetaData";
 				photoFrame.className = 'photoFrame'; 
 
+				var x = Math.floor(Math.random() * 20);
+
 				var date = new Date(getProPics.data[x].created_time*1000);	
 				var formatted = "Posted on " +date.toString();
 
@@ -124,7 +128,7 @@ $(document).ready(function(){
 				if(getProPics.data[x].caption != null) { 
 				  	caption.innerHTML = getProPics.data[x].caption.text;
 				} else {
-				  caption.innerHTML = "no caption";
+				  caption.innerHTML = "<br><br>";
 				}
 				metaData.innerHTML = formatted;
 
@@ -164,7 +168,7 @@ $(document).ready(function(){
 	  		var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
 
 	  		//set column headers
- 			$('#column1Title').html('Geotagged at '+breakName+' and surrounding area');
+ 			$('#column1Title').html('Geotagged at '+breakName+' and nearby');
  			$('#column2Title').html('Tagged with #'+shortened);
 
  			//comment out to avoid 429 while editing
@@ -210,6 +214,8 @@ $(document).ready(function(){
 	//load more button loads four more rows of pictures
 	$('#loadMore').click(function() {
 			var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
+			
+			//only loading more of tourmaline
 			getTaggedPics(shortened);
 	  		getLocationPics(lat, langy);
 	  		//Surfreps
