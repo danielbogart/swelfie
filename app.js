@@ -174,7 +174,7 @@ $(document).ready(function(){
 		google.maps.event.addListener(makeMarker, 'click', function() {
 	  		$('#map-canvas').hide();
 	  		$('#mapContainer').hide();
-	  		$('#subTitle').hide();
+	  		$('#footer').hide();
 			document.getElementById('title').className= "";
 	  		$('#results').show();
 	  		shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
