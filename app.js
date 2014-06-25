@@ -223,7 +223,7 @@ $(document).ready(function(){
 
 	//load more button loads four more rows of pictures
 	//still need to deal with result when no more pictures to display
-	$('#loadMore').click(function() {
+	$('#loadMore2').click(function() {
 
 			getTaggedPics(shortened, starter, limiter);
 	  		getLocationPics(lat2, langy2, starter, limiter);
@@ -239,5 +239,10 @@ $(document).ready(function(){
 
 	  		starter += 4;
 	  		limiter += 4;
+
+	  		if (starter == 20) {
+	  			$('#loadMore2').hide();
+	  		};
+
 	});
 })
