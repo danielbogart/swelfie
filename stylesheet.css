@@ -9,21 +9,13 @@ body {
 	background-color: #f9f9f9;
 }
 .titleContainer {
-	width: 40%;
+	width: 100%;
 	display: inline-block;
 	text-align: center;
-	padding-left: 2em;
 }
 
 #resultsViewport {
 	min-width: 1203px;
-}
-
-#subtitleContainer {
-	width: 40%;
-	display: inline-block;
-	text-align: center;
-	padding-right: 2em;
 }
 
 #title {
@@ -37,22 +29,40 @@ body {
 }
 
 #subTitle{
-	display: inline-block;
 	text-align: center;
 	font-family: 'Indie Flower', Arial;
-	margin-bottom: 1em;
+	padding: .8em;
 }
 
 #map-canvas {
 	display: show;
 	position: relative;
-	height: 86.5%;
+	height: 92%;
+	width: 100%;
 	bottom: 0px;
 	overflow: hidden;
+	margin: 0 auto auto auto;
+}
+
+#mapContainer {
+	display: show;
+	position: relative;
+	height: 80%;
+	width: 95%;
+	bottom: 0px;
+	overflow: hidden;
+	margin: 0 auto auto auto;
+	padding: 1em;
+	background: #ffffff;
+	box-shadow: 0px 0px 8px #CCCCCC;
+	-moz-box-shadow: 0px 0px 8px #CCCCCC;
+	-webkit-box-shadow: 0px 0px 12px 6px #CCCCCC;
 }
 
 #results {
 	display: none;
+	width: 70%;
+	margin: 0 auto 0 auto;
 }
 
 #column1 {

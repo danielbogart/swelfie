@@ -5,12 +5,15 @@ $(document).ready(function(){
 	  zoom: 11,
 	  center: myLatlng
 	}
+	var shortened;
+	var starter = 4;
+	var limiter = 7;
 
 	//initialize google maps, centered on myLatLng
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
 	//retrieve and display photos by hashtag
-	var getTaggedPics = function(tagname) {
+	var getTaggedPics = function(tagname, start, limit) {
 
 		$.ajax({
 			type: 'GET',
@@ -19,8 +22,7 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/tags/'+tagname+'/media/recent?client_id=29a2e1bc7f0542cc8926cdee3f5e5053'
 		})
 		.done(function(getTaggedPics) {
-			console.log('get tagged pics');
-			for (x=0; x <=3; x++) {
+			for (x=start; x <=limit; x++) {
 				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
@@ -42,6 +44,11 @@ $(document).ready(function(){
 				}
 				metaData.innerHTML = formatted;
 
+
+				//set 'shortened2' to this breakName for 'load more'
+				shortened2 = tagname.replace(/\'/ig, '').replace(/\s/ig, '');
+				console.log(shortened2);
+
 				//create photo frame with picture, caption, and time posted inside
 				
 				$('#column2').append(photoFrame);
@@ -54,7 +61,7 @@ $(document).ready(function(){
 	};
 
 	//retrieve and display photos by geolocation tag, within 1000m
-	var getLocationPics = function(lat, langy) {
+	var getLocationPics = function(lat, langy, start, limit) {
 		$.ajax({
 			type: 'GET',
 			distance: 1000,
@@ -65,7 +72,7 @@ $(document).ready(function(){
 		})
 		.done(function(getLocationPics) {
 			console.log(getLocationPics);	
-			for (x=0; x <=3; x++) {
+			for (x=start; x <=limit; x++) {
 				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
@@ -88,6 +95,11 @@ $(document).ready(function(){
 				  caption = document.createElement('div');
 				  caption.className = 'caption';				  
 				}
+
+				//set lat2/langy2
+				lat2 = lat;
+				langy2 = langy;
+
 				//create photo frame with picture, caption, and time posted inside
 				
 				$('#column1').append(photoFrame);
@@ -109,7 +121,6 @@ $(document).ready(function(){
 			url: 'https://api.instagram.com/v1/users/'+userid+'/media/recent/?client_id=29a2e1bc7f0542cc8926cdee3f5e5053'
 		})
 		.done(function(getProPics) {
-				console.log('get pro pics');
 				var photoFrame = document.createElement("div");
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
@@ -162,19 +173,18 @@ $(document).ready(function(){
 
 		google.maps.event.addListener(makeMarker, 'click', function() {
 	  		$('#map-canvas').hide();
+	  		$('#mapContainer').hide();
 	  		$('#subTitle').hide();
 			document.getElementById('title').className= "";
 	  		$('#results').show();
-	  		var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
+	  		shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
 
 	  		//set column headers
  			$('#column1Title').html('Geotagged at '+breakName+' and nearby');
  			$('#column2Title').html('Tagged with #'+shortened);
-
- 			//comment out to avoid 429 while editing
  		
-	  		getTaggedPics(shortened);
-	  		getLocationPics(lat, langy);
+	  		getTaggedPics(shortened, 0, 3);
+	  		getLocationPics(lat, langy, 0, 3);
 	  		getProPics(14549197);
 	  		getProPics(8139971);
 	  		getProPics(5995367);
@@ -212,12 +222,11 @@ $(document).ready(function(){
 	});
 
 	//load more button loads four more rows of pictures
+	//still need to deal with result when no more pictures to display
 	$('#loadMore').click(function() {
-			var shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
-			
-			//only loading more of tourmaline
-			getTaggedPics(shortened);
-	  		getLocationPics(lat, langy);
+
+			getTaggedPics(shortened, starter, limiter);
+	  		getLocationPics(lat2, langy2, starter, limiter);
 	  		//Surfreps
 	  		getProPics(442848562);
 	  		//Jordy Smith
@@ -226,5 +235,9 @@ $(document).ready(function(){
 	  		getProPics(14272077);
 	  		//Jamie O'Brien
 	  		getProPics(14406863);
+	  		console.log(starter);
+
+	  		starter += 4;
+	  		limiter += 4;
 	});
 })
