@@ -22,6 +22,7 @@ body {
 	text-align: center;
 	font-family: 'Indie Flower', Arial;
 	font-size: 5em;
+	min-width: 1436px;
 }
 
 #clickTitle:hover {
