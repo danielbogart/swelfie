@@ -15,7 +15,7 @@ body {
 }
 
 #resultsViewport {
-	min-width: 1203px;
+	min-width: 1436px;
 }
 
 #title {
@@ -92,7 +92,8 @@ body {
 	font-size: 1.5em;
 	height: 1.5em;
 	width: auto;
-	vertical-align: middle
+	vertical-align: middle;
+	overflow: hidden;
 }
 
 .photoFrame {
