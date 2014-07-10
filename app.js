@@ -185,10 +185,12 @@ $(document).ready(function(){
  		
 	  		getTaggedPics(shortened, 0, 3);
 	  		getLocationPics(lat, langy, 0, 3);
-	  		getProPics(14549197);
+	  		getProPics(442848562);
 	  		getProPics(8139971);
 	  		getProPics(5995367);
 	  		getProPics(6704228);
+
+	  		$('#title').css('min-width', '1436px');
 
 		});
 	}
@@ -228,7 +230,7 @@ $(document).ready(function(){
 			getTaggedPics(shortened, starter, limiter);
 	  		getLocationPics(lat2, langy2, starter, limiter);
 	  		//Surfreps
-	  		getProPics(442848562);
+	  		getProPics(14549197);
 	  		//Jordy Smith
 	  		getProPics(6156937);
 	  		//Holly Coffey
