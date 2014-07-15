@@ -175,6 +175,7 @@ $(document).ready(function(){
 	  		$('#map-canvas').hide();
 	  		$('#mapContainer').hide();
 	  		$('#footer').hide();
+	  		$('.menuContainer').hide();
 			document.getElementById('title').className= "";
 	  		$('#results').show();
 	  		shortened = breakName.replace(/\'/ig, '').replace(/\s/ig, '');
@@ -213,7 +214,32 @@ $(document).ready(function(){
  		newMarker(33.147253,-117.3461, 'Tamarack Beach'),
  		newMarker(33.193692,-117.384315, 'Oceanside Pier'),
  		newMarker(32.805077,-117.262253, 'Tourmaline Beach')
- 	];
+  	];
+
+  	$('.menuContainer').change(function(){
+  	var val = $('div.menuContainer select').val();
+	 	if (val == 'norcal') {
+	 		var markers = [
+	 			newMarker(41.969833, -124.206617,'Clifford Kamph Memorial Park'),
+				newMarker(41.828517, -124.228600,'Lake Talawa'),
+				newMarker(41.869300, -124.216233,'Pelican Beach'),
+				newMarker(41.741867, -124.170567,'Crescent City South Beach'),
+				newMarker(41.705250, -124.144083,'Enderts Beach'),
+				newMarker(41.705250, -124.144083,'Garth\'s Reef'),				
+				newMarker(41.548933, -124.086283,'Point Saint George'),
+				newMarker(41.786133, -124.255083,'Saint George Reef Lighthouse'),
+				newMarker(41.841433, -124.375183,'Whaler Island'),
+				newMarker(41.603467, -124.101733,'Wilson Creek'),
+				newMarker(41.770667, -124.244250,'Klamath Rivermouth')				
+	 		];
+
+	 		var myLatlng = new google.maps.LatLng(41.770667, -124.244250);
+	 		map.setCenter(myLatlng);
+	 		map.setZoom(10);
+
+	 	};
+
+ 	});
 
  	//back button reloads map - currently reloads entire page, could use JS instead
 	$('#back').click(function() {
