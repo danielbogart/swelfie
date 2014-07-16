@@ -8,9 +8,19 @@ $(document).ready(function(){
 	var shortened;
 	var starter = 4;
 	var limiter = 7;
+	var markersArray = [];
 
 	//initialize google maps, centered on myLatLng
 	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+	//clear markers
+	function clearOverlays() {
+		for (var i = 0; i < markersArray.length; i++) {
+				markersArray[i].setMap(null);
+			}
+			markersArray.length = 0;
+		}
+
 
 	//retrieve and display photos by hashtag
 	var getTaggedPics = function(tagname, start, limit) {
@@ -27,34 +37,43 @@ $(document).ready(function(){
 				var img = document.createElement("img");
 				var metaData = document.createElement("div");
 				var caption = document.createElement('div');
+				console.log(getTaggedPics);
 
 				caption.className = 'caption';
 				metaData.className = "imgMetaData";
 				photoFrame.className = 'photoFrame'; 
 
-				var date = new Date(getTaggedPics.data[x].created_time*1000);	
-				var formatted = "Posted on " +date.toString();
-
-				img.src = getTaggedPics.data[x].images.low_resolution.url;
-				//if statement to handle if caption is blank
-				if(getTaggedPics.data[x].caption != null) { 
-				  	caption.innerHTML = getTaggedPics.data[x].caption.text;
+				if(getTaggedPics.data.length <= x) {
+					$('#column2').append(photoFrame);
+					img.src = "images/blank.gif";
+					$('#column2 .photoFrame').last().append(img);	
+					$('#column2 .photoFrame').last().append(caption);
+					$('#column2 .photoFrame').last().append(metaData);				
 				} else {
-				  caption.innerHTML = "<br><br>";
+
+					var date = new Date(getTaggedPics.data[x].created_time*1000);	
+					var formatted = "Posted on " +date.toString();
+
+					img.src = getTaggedPics.data[x].images.low_resolution.url;
+					//if statement to handle if caption is blank
+					if(getTaggedPics.data[x].caption != null) { 
+					  	caption.innerHTML = getTaggedPics.data[x].caption.text;
+					} else {
+					  caption.innerHTML = "<br><br>";
+					}
+					metaData.innerHTML = formatted;
+
+
+					//set 'shortened2' to this breakName for 'load more'
+					shortened2 = tagname.replace(/\'/ig, '').replace(/\s/ig, '');
+					console.log(shortened2);
+
+					//create photo frame with picture, caption, and time posted inside
+					$('#column2').append(photoFrame);
+					$('#column2 .photoFrame').last().append(img);
+					$('#column2 .photoFrame').last().append(caption);
+					$('#column2 .photoFrame').last().append(metaData);
 				}
-				metaData.innerHTML = formatted;
-
-
-				//set 'shortened2' to this breakName for 'load more'
-				shortened2 = tagname.replace(/\'/ig, '').replace(/\s/ig, '');
-				console.log(shortened2);
-
-				//create photo frame with picture, caption, and time posted inside
-				
-				$('#column2').append(photoFrame);
-				$('#column2 .photoFrame').last().append(img);
-				$('#column2 .photoFrame').last().append(caption);
-				$('#column2 .photoFrame').last().append(metaData);
 			};
 
 		});
@@ -82,30 +101,39 @@ $(document).ready(function(){
 				metaData.className = "imgMetaData";
 				photoFrame.className = 'photoFrame'; 
 
-				var date = new Date(getLocationPics.data[x].created_time*1000);	
-				var formatted = "Posted on " +date.toString();
-
-				img.src = getLocationPics.data[x].images.low_resolution.url;
-				metaData.innerHTML = formatted;
-				//if statement to handle if caption is blank
-				if(getLocationPics.data[x].caption != null) { 
-				  	caption.innerHTML = getLocationPics.data[x].caption.text;
+				if(getLocationPics.data.length <= x) {
+					$('#column1').append(photoFrame);
+					img.src = "images/blank.gif";
+					$('#column1 .photoFrame').last().append(img);	
+					$('#column1 .photoFrame').last().append(caption);
+					$('#column1 .photoFrame').last().append(metaData);				
 				} else {
-				  caption = 'test';
-				  caption = document.createElement('div');
-				  caption.className = 'caption';				  
+
+					var date = new Date(getLocationPics.data[x].created_time*1000);	
+					var formatted = "Posted on " +date.toString();
+
+					img.src = getLocationPics.data[x].images.low_resolution.url;
+					metaData.innerHTML = formatted;
+					//if statement to handle if caption is blank
+					if(getLocationPics.data[x].caption != null) { 
+					  	caption.innerHTML = getLocationPics.data[x].caption.text;
+					} else {
+					  caption = 'test';
+					  caption = document.createElement('div');
+					  caption.className = 'caption';				  
+					}
+
+					//set lat2/langy2
+					lat2 = lat;
+					langy2 = langy;
+
+					//create photo frame with picture, caption, and time posted inside
+					
+					$('#column1').append(photoFrame);
+					$('#column1 .photoFrame').last().append(img);
+					$('#column1 .photoFrame').last().append(caption);
+					$('#column1 .photoFrame').last().append(metaData);
 				}
-
-				//set lat2/langy2
-				lat2 = lat;
-				langy2 = langy;
-
-				//create photo frame with picture, caption, and time posted inside
-				
-				$('#column1').append(photoFrame);
-				$('#column1 .photoFrame').last().append(img);
-				$('#column1 .photoFrame').last().append(caption);
-				$('#column1 .photoFrame').last().append(metaData);
 			};
 
 		});
@@ -163,7 +191,8 @@ $(document).ready(function(){
 			title: breakName
 		});
 
-		makeMarker.setMap(map);		
+		makeMarker.setMap(map);
+		markersArray.push(makeMarker);		
 
 		infowindow2 = new google.maps.InfoWindow({
 			content: breakName
@@ -216,31 +245,6 @@ $(document).ready(function(){
  		newMarker(32.805077,-117.262253, 'Tourmaline Beach')
   	];
 
-  	$('.menuContainer').change(function(){
-  	var val = $('div.menuContainer select').val();
-	 	if (val == 'norcal') {
-	 		var markers = [
-	 			newMarker(41.969833, -124.206617,'Clifford Kamph Memorial Park'),
-				newMarker(41.828517, -124.228600,'Lake Talawa'),
-				newMarker(41.869300, -124.216233,'Pelican Beach'),
-				newMarker(41.741867, -124.170567,'Crescent City South Beach'),
-				newMarker(41.705250, -124.144083,'Enderts Beach'),
-				newMarker(41.705250, -124.144083,'Garth\'s Reef'),				
-				newMarker(41.548933, -124.086283,'Point Saint George'),
-				newMarker(41.786133, -124.255083,'Saint George Reef Lighthouse'),
-				newMarker(41.841433, -124.375183,'Whaler Island'),
-				newMarker(41.603467, -124.101733,'Wilson Creek'),
-				newMarker(41.770667, -124.244250,'Klamath Rivermouth')				
-	 		];
-
-	 		var myLatlng = new google.maps.LatLng(41.770667, -124.244250);
-	 		map.setCenter(myLatlng);
-	 		map.setZoom(10);
-
-	 	};
-
- 	});
-
  	//back button reloads map - currently reloads entire page, could use JS instead
 	$('#back').click(function() {
 		location.reload();
@@ -273,4 +277,58 @@ $(document).ready(function(){
 	  		};
 
 	});
+
+  	$('.menuContainer').change(function(){
+  	var val = $('div.menuContainer select').val();
+	 	if (val == 'delnorte') {
+	 		clearOverlays();
+	 		var markers = [
+	 			newMarker(41.969833, -124.206617,'Clifford Kamph Memorial Park'),
+				newMarker(41.828517, -124.228600,'Lake Talawa'),
+				newMarker(41.869300, -124.216233,'Pelican Beach'),
+				newMarker(41.741867, -124.170567,'Crescent City South Beach'),
+				newMarker(41.705250, -124.144083,'Enderts Beach'),
+				newMarker(41.705250, -124.144083,'Garth\'s Reef'),				
+				newMarker(41.548933, -124.086283,'Point Saint George'),
+				newMarker(41.786133, -124.255083,'Saint George Reef Lighthouse'),
+				newMarker(41.841433, -124.375183,'Whaler Island'),
+				newMarker(41.603467, -124.101733,'Wilson Creek'),
+				newMarker(41.770667, -124.244250,'Klamath Rivermouth')				
+	 		];
+
+	 		var myLatlng = new google.maps.LatLng(41.770667, -124.244250);
+	 		map.setCenter(myLatlng);
+	 		map.setZoom(10);
+
+	 	};
+
+	 	if (val == 'sd') {
+	 		clearOverlays();
+	 		var markers = [
+		 		newMarker(32.565044,-117.132996, 'Imperial Beach'),
+		 		newMarker(32.890399, -117.253224, 'Black\'s Beach'),
+		 		newMarker(32.725631, -117.257387, 'Sunset Cliffs'),
+		 		newMarker(32.749529, -117.253145, 'Ocean Beach'),
+		 		newMarker(32.771254,-117.253317, 'Mission Beach'),
+		 		newMarker(32.796799,-117.257694, 'Pacific Beach'),
+		 		newMarker(32.831171,-117.281291, 'Windansea Beach'),
+		 		newMarker(32.867909,-117.253825, 'Scripp\'s Beach'),
+		 		newMarker(32.959094,-117.268177, 'Del Mar Beach'),
+		 		newMarker(33.016383,-117.282337, 'Cardiff Reef'),
+		 		newMarker(33.034499,-117.292712, 'Swami\'s'),
+		 		newMarker(33.064832,-117.305598, 'Beacon\'s Beach'),
+		 		newMarker(33.096332,-117.316809, 'Ponto Jetty'),
+		 		newMarker(33.147253,-117.3461, 'Tamarack Beach'),
+		 		newMarker(33.193692,-117.384315, 'Oceanside Pier'),
+		 		newMarker(32.805077,-117.262253, 'Tourmaline Beach')			
+	 		];
+
+	 		var myLatlng = new google.maps.LatLng(32.805077,-117.262253);
+	 		map.setCenter(myLatlng);
+	 		map.setZoom(11);
+
+	 	};
+
+ 	});
+
 })
